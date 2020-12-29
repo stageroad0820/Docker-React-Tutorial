@@ -1,0 +1,16 @@
+sudo: required
+
+language: generic
+
+services:
+  - docker
+
+before_install:
+  - echo "Start creating and image with dockerfile..."
+  - docker build -t stageroad0820/docker-react-app -f dockerfile.dev .
+
+script:
+  - docker run -e CI=true stageroad0820/docker-react-app npm run test -- --converage
+
+after_success:
+  - echo "Test successfully completed!"
